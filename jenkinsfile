@@ -1,0 +1,29 @@
+pipeline {
+    agent { label "vinod" }
+
+    stages {
+        stage('code') {
+            steps {
+                echo 'this is cloning the code'
+                git url: "https://github.com/nacholiya/devops-project.git", branch : "master"
+            }
+        }
+        stage ("build"){
+            steps {
+                echo "This is building the code"
+                sh "docker build -t devops-project:latest ."
+            }
+        }
+        stage ("test"){
+            steps {
+                echo "this is testing the code"
+            }
+        }
+        stage ("deploy"){
+            steps {
+                echo "this is deploying the code"
+                sh "docker run -d -p 5000:5000 devops-project:latest"
+            }
+        }
+    }
+}
