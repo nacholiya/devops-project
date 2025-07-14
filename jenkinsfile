@@ -22,7 +22,7 @@ pipeline {
         stage ("deploy"){
             steps {
                 echo "this is deploying the code"
-                sh "docker run -d -p 5000:5000 devops-project:latest"
+                sh "docker compose up -d
             }
         }
     }
