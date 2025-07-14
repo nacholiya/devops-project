@@ -11,7 +11,7 @@ pipeline {
         stage ("build"){
             steps {
                 echo "This is building the code"
-                sh "docker build -t devops-project:latest ."
+                sh "docker build -t flask-app:latest ."
             }
         }
         stage ("Push to docker hub"){
@@ -19,8 +19,8 @@ pipeline {
                 echo "this is pushing the image to dockerhub"
                 withCredentials([usernamePassword(credentialsId: "dockerHubCred", passwordVariable: "dockerHubPass", usernameVariable: "dockerHubUsername")]){
                     sh "docker login -u ${env.dockerHubUsername} -p ${env.dockerHubPass}"
-                    sh "docker image tag devops-project:latest ${env.dockerHubUsername}/devops-project:latest"
-                    sh "docker push ${env.dockerHubUsername}/devops-project:latest"
+                    sh "docker image tag devops-project:latest ${env.dockerHubUsername}/flask-app:latest"
+                    sh "docker push ${env.dockerHubUsername}/flask-app:latest"
                 }
             }
         }
